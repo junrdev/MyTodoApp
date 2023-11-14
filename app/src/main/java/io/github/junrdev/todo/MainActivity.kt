@@ -13,7 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.junrdev.todo.domain.viewmodel.TodoViewModel
+import io.github.junrdev.todo.ui.screens.navigation.AppNavigator
 import io.github.junrdev.todo.ui.theme.TodoTheme
 import javax.inject.Inject
 
@@ -21,15 +24,22 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val TAG = "MainActivity"
+
     @Inject
-    private lateinit var context: TodoApp
+    lateinit var context: TodoApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
+
+            //creating todo vm
+            val todoViewModel: TodoViewModel = viewModel()
+
             enableEdgeToEdge()
             App {
-                Toast.makeText(context, "Working", Toast.LENGTH_SHORT).show()
+                AppNavigator(todoViewModel = todoViewModel)
             }
         }
     }
@@ -37,8 +47,8 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun App(content : @Composable () -> Unit) {
-
+fun App(content: @Composable () -> Unit) {
+    content()
 }
 
 

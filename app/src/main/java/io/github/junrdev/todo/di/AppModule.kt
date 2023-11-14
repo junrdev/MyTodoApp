@@ -1,6 +1,7 @@
 package io.github.junrdev.todo.di
 
 import android.content.Context
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
@@ -12,6 +13,7 @@ import dagger.hilt.components.SingletonComponent
 import io.github.junrdev.todo.TodoApp
 import io.github.junrdev.todo.data.TodoDb
 import io.github.junrdev.todo.domain.dao.TodoDao
+import io.github.junrdev.todo.domain.viewmodel.TodoViewModel
 import javax.inject.Singleton
 
 
@@ -37,6 +39,12 @@ object AppModule {
         return Room.databaseBuilder(context, TodoDb::class.java, "todo_db")
             .fallbackToDestructiveMigration().build()
     }
+
+//    @Singleton
+//    @Provides
+//    fun providesTodoViewModel(@ApplicationContext context: Context) : TodoViewModel{
+//        return TodoViewModel()
+//    }
 
 
 }
